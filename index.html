@@ -21,8 +21,9 @@
       "esri/layers/GraphicsLayer",
       "esri/layers/FeatureLayer",
       "esri/geometry/Polygon",
-      "esri/geometry/Polyline"
-], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Polygon, Polyline) {
+      "esri/geometry/Polyline",
+       "esri/renderers/UniqueValueRenderer"
+], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Polygon, Polyline, UniqueValueRenderer) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurJ1kLPomorD8TrKnUY-69H8k_xONIhZ8kcIboLXTep9_C10dAmnF8WtDsNt0ufTI6XphX36nbQIZA1sStLbpW_RiOh5ffFa3W6QekcMcdA5rRBIQZP3vJrRWPdiAhGouwmAqEq1tYZ1KPTzNbF_7QJnL0xpjT5w4fEm31PNDdvQN2m-wX1uAj1bjDC8vLQN8Si5-PZtpPkJpaHwRn_aFsto.AT1_RSTP1ZbY";
       const map = new Map({
@@ -88,15 +89,29 @@ popupTemplate: popupEduusa
 //adding the feature layer to the map
 map.add(usaeduLayer);
 
-const airportRenderer = {
-        "type": "simple",
-        "symbol": {
-          "type": "picture-marker",
-          "url": "https://sounny.github.io/agol/outline_local_airport_black_24dp.png",
-          "width": "18px",
-          "height": "18px"
+const airportRenderer = new UniqueValueRenderer({
+      field: "Fac_Type",
+      uniqueValueInfos: [
+        {
+          value: "AIRPORT",
+          symbol: {
+            type: "picture-marker",
+            url: "https://sounny.github.io/agol/outline_local_airport_black_24dp.png",
+            width: "18px",
+            height: "18px"
+          }
+        },
+        {
+          value: "HELIPORT",
+          symbol: {
+            type: "picture-marker",
+            url: "helicopterpng.png",
+            width: "18px",
+            height: "18px"
+          }
         }
-      }
+      ]
+    })
 
 const popupUSAP = {
   "title": "Airports",
@@ -126,15 +141,12 @@ const airportLabels = {
 const USAP = new FeatureLayer({
 url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStatesAirports/FeatureServer",
 renderer: airportRenderer,
-definitionExpression: "Fac_Type = 'AIRPORT'",
+definitionExpression: "Fac_Type = 'AIRPORT' OR Fac_Type = 'HELIPORT'",
 labelingInfo: [airportLabels],
 
-//adding the popup here
-outFields: ["NAME","TOT_ENROLL"],
 popupTemplate: popupUSAP
  });
 
-//adding the feature layer to the map
 map.add(USAP);
 
 const polyline = new Polyline({
