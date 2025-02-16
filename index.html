@@ -88,6 +88,24 @@ popupTemplate: popupEduusa
 //adding the feature layer to the map
 map.add(usaeduLayer);
 
+// Define a pop-up for usaeduLayer
+const popupUSAP = {
+  "title": "Airports",
+  "content": "<b>Name:</b> {Fac_Name}<br><b>Type:</b> {Fac_Type}<br><b>Airspace:</b> {Airspace_A}<br><b>Location ID:</b> {Loc_Id}"
+}
+
+//adding the Const for the feature layer
+const USAP = new FeatureLayer({
+url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStatesAirports/FeatureServer",
+
+//adding the popup here
+outFields: ["NAME","TOT_ENROLL"],
+popupTemplate: popupUSAP
+ });
+
+//adding the feature layer to the map
+map.add(USAP);
+
 const polyline = new Polyline({
       paths: [
         [-97.750689, 30.263098],
