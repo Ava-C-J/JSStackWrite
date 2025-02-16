@@ -103,10 +103,31 @@ const popupUSAP = {
   "content": "<b>Name:</b> {Fac_Name}<br><b>Type:</b> {Fac_Type}<br><b>Airspace:</b> {Airspace_A}<br><b>Location ID:</b> {Loc_Id}"
 }
 
+
+const airportLabels = {
+  symbol: {
+    type: "text",
+    color: "#FFFFFF",
+    haloColor: "#5E8D74",
+    haloSize: "2px",
+    font: {
+      size: "12px",
+      family: "Noto Sans",
+      style: "italic",
+      weight: "normal"
+    }
+  },
+  labelPlacement: "above-center",
+  labelExpressionInfo: {
+    expression: "$feature.Fac_Name"
+  }
+};
 //adding the Const for the feature layer
 const USAP = new FeatureLayer({
 url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/UnitedStatesAirports/FeatureServer",
 renderer: airportRenderer,
+definitionExpression: "Fac_Type = 'AIRPORT'",
+labelingInfo: [airportLabels],
 
 //adding the popup here
 outFields: ["NAME","TOT_ENROLL"],
