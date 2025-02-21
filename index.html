@@ -194,18 +194,37 @@ const polygon = new Polygon({
   type: "simple",
   symbol: {
     type: "picture-marker",
-    url: "https://example.com/your-icon.png", // URL to your icon
+    url: "coolairplane.png", // URL to your icon
     width: "24px",
     height: "24px"
   }
 };
 
+const myAirportsLabels = {
+  symbol: {
+    type: "text",
+    color: "#000000",
+    haloColor: "#FFFFFF",
+    haloSize: "1px",
+    font: {
+      size: "10px",
+      family: "Noto Sans",
+      weight: "bold"
+    }
+  },
+  labelPlacement: "above-center",
+  labelExpressionInfo: {
+    expression: "$feature.AirportCode"
+  }
+};
     //adding the const for the feature layer
 const myAirports = new FeatureLayer({
  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/SuperCoolAirports/FeatureServer",
  
  //adding the popup here
  outFields: ["AirportCode"],
+ renderer: myAirportsRenderer,
+ labelingInfo: [myAirportsLabels]
 
 });
 
