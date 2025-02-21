@@ -23,8 +23,9 @@
       "esri/geometry/Polygon",
       "esri/geometry/Polyline",
        "esri/renderers/UniqueValueRenderer",
-       "esri/widgets/Editor"
-], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Polygon, Polyline, UniqueValueRenderer, Editor) {
+       "esri/widgets/Editor",
+       "esri/widgets/Legend"
+], function(esriConfig,Map, MapView, Graphic, GraphicsLayer, FeatureLayer, Polygon, Polyline, UniqueValueRenderer, Editor, Legend) {
 
       esriConfig.apiKey = "AAPTxy8BH1VEsoebNVZXo8HurJ1kLPomorD8TrKnUY-69H8k_xONIhZ8kcIboLXTep9_C10dAmnF8WtDsNt0ufTI6XphX36nbQIZA1sStLbpW_RiOh5ffFa3W6QekcMcdA5rRBIQZP3vJrRWPdiAhGouwmAqEq1tYZ1KPTzNbF_7QJnL0xpjT5w4fEm31PNDdvQN2m-wX1uAj1bjDC8vLQN8Si5-PZtpPkJpaHwRn_aFsto.AT1_RSTP1ZbY";
       const map = new Map({
@@ -244,6 +245,31 @@ const editor = new Editor({
 
 // Add the widget to the view
 view.ui.add(editor, "top-right");
+
+// Add the widget to the view
+view.ui.add(editor, "top-right");
+
+// Create a Legend widget
+const legend = new Legend({
+  view: view,
+  layerInfos: [
+    {
+      layer: myAirports,
+      title: "My Airports"
+    },
+    {
+      layer: USAP,
+      title: "US Airports"
+    },
+    {
+      layer: usaeduLayer,
+      title: "Colleges and Universities"
+    }
+  ]
+});
+
+// Add the Legend widget to the view
+view.ui.add(legend, "bottom-left");
   });
   </script>
 
