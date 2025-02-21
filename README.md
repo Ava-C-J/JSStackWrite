@@ -1,2 +1,2 @@
 # esrijs
-A project using Esri JS to access ArcGIS Online
+Continuing my previous project from JS Stack Read!
