@@ -190,6 +190,16 @@ const polygon = new Polygon({
     });
     graphicsLayer.add(polygonGraphic);
 
+    const myAirportsRenderer = {
+  type: "simple",
+  symbol: {
+    type: "picture-marker",
+    url: "https://example.com/your-icon.png", // URL to your icon
+    width: "24px",
+    height: "24px"
+  }
+};
+
     //adding the const for the feature layer
 const myAirports = new FeatureLayer({
  url: "https://services.arcgis.com/LBbVDC0hKPAnLRpO/arcgis/rest/services/SuperCoolAirports/FeatureServer",
